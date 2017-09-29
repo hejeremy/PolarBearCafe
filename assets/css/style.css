@@ -1,0 +1,47 @@
+.navbar {
+    padding: 5px;
+    border-radius: 0px 0px 6px 6px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    /*
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    -o-columns: 3;
+    columns: 3;
+    */
+}
+
+body {
+    min-height: 600px;
+    width: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#characterImage {
+    min-height: 300px;
+    min-width: 300px;
+    background-repeat: no-repeat;
+}
+
+#buttonNext {
+    font-size: 25px;
+    font-weight: bold;
+    background-color: purple;
+    border: solid grey 2px;
+    height: auto;
+    width: auto;
+}
+
+#conversationWords {
+    visibility: hidden;
+}
+
+nav {
+    display: collapse;
+}
