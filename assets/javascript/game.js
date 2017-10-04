@@ -1,11 +1,11 @@
 //Polar Bear Cafe
 
 //Backgrounds list
-var backgrounds = ['cafe', 'bar', 'table', 'patio'];
+const backgrounds = ['cafe', 'bar', 'table', 'patio'];
 generateOptions(backgrounds, $('#backgrounds'), 'backgroundOptions');
 
 //Character list
-var characters = {
+const characters = {
     cafe: ['polarBear', 'panda', 'penguin'],
     bar: ['polarBear', 'panda', 'penguin'],
     table: ['polarBear', 'panda', 'penguin'],
@@ -13,26 +13,26 @@ var characters = {
 };
 
 //Audio import that loops
-var audio1 = new Audio('assets/audio/openForBusiness.mp3');
+const audio1 = new Audio('assets/audio/openForBusiness.mp3');
 audio1.addEventListener('ended', function() {
     this.currentTime = 0;
     this.play();
 }, false);
 
-var audio2 = new Audio('assets/audio/goodnightThankYou.mp3');
+const audio2 = new Audio('assets/audio/goodnightThankYou.mp3');
 audio2.addEventListener('ended', function() {
     this.currentTime = 0;
     this.play();
 }, false);
 
 //Conversation interval
-var conversationInterval;
+let conversationInterval;
 
 //Clears portrait
 //$('#conversationWords').css('visibility', 'hidden');
 
 //Tracks your current location
-var currentLocation = 'cafe';
+let currentLocation = 'cafe';
 setBackground(currentLocation);
 generateOptions(characters[currentLocation], $('#characters'), 'characterOptions');
 playAudio(currentLocation);
@@ -41,12 +41,12 @@ playAudio(currentLocation);
 resetCharacterButtons();
 
 //Tracks if you're in a conversation
-var talking = false;
+let talking = false;
 showButtons();
-var talkingTo = '';
+let talkingTo = '';
 
 //Character info and stats
-var polarBear = {
+let polarBear = {
     name: 'Polar Bear',
     //species: 'polar bear',
     affection: 0,
@@ -144,7 +144,7 @@ var polarBear = {
     },
     /* Unfinished portion
     initialConversation1: function() {
-        var speech = ['Would you like to order something?.'];
+        const speech = ['Would you like to order something?.'];
         //initiateConversation(speech);
         return 'pb1';
     },
@@ -163,7 +163,7 @@ var polarBear = {
         }
     },
     initialConversation2: function() {
-        var speech = ['The weather today sure is nice.', 'I hope you are well.'];
+        const speech = ['The weather today sure is nice.', 'I hope you are well.'];
         //initiateConversation(speech);
         return 'pb2';
     },
@@ -183,7 +183,7 @@ var polarBear = {
     */
 };
 
-var panda = {
+let panda = {
     name: 'Panda',
     //species: 'giant panda',
     affection: 0,
@@ -269,7 +269,7 @@ var panda = {
     }
 };
 
-var penguin = {
+let penguin = {
     name: 'Penguin',
     //species: 'penguin',
     affection: 0,
@@ -395,10 +395,10 @@ restart();
 
 //Sets background scene
 function setBackground(inputValue) {
-    var imageName = inputValue + '.png';
-    var imagePath = "url(assets/images/" + imageName + ")";
+    const imageName = inputValue + '.png';
+    const imagePath = "url(assets/images/" + imageName + ")";
 
-    var body = $('body');
+    const body = $('body');
     body.css('background-image', imagePath);
     body.css('background-repeat', 'no-repeat');
 }
@@ -408,7 +408,7 @@ function generateOptions(inputArray, outputPlace, classOption) {
     outputPlace.empty();
     inputArray.forEach(arrayLoop);
     function arrayLoop(item) {
-        var newOption = $('<button>');
+        const newOption = $('<button>');
         newOption.addClass(classOption);
         if (classOption === 'characterOptions') {
             newOption.addClass('btn btn-success');
@@ -450,20 +450,20 @@ function generateConversation(inputValue) {
 
 //Generates character stats
 function generateCharacterStats(inputObj) {
-    var setCharacter = $('<div>');
+    const setCharacter = $('<div>');
     setCharacter.addClass('col-sm-4 panel panel-info statsPanel');
-    var setCharacterHeader = $('<div>');
+    const setCharacterHeader = $('<div>');
     setCharacterHeader.addClass('panel-heading');
-    var panelTitle = $('<h3>');
+    const panelTitle = $('<h3>');
     panelTitle.addClass('panel-title');
     panelTitle.text(inputObj['name']);
     setCharacterHeader.append(panelTitle);
-    var setCharacterBody = $('<div>');
+    const setCharacterBody = $('<div>');
     setCharacterBody.addClass('panel-body');
     for (x in inputObj) {
-        var value = inputObj[x];
+        const value = inputObj[x];
         if (typeof value != 'function') {
-            var characterInfo = $('<p>');
+            const characterInfo = $('<p>');
             characterInfo.text(x.toUpperCase() + ': ' + inputObj[x]);
             setCharacterBody.append(characterInfo);
         }
@@ -491,18 +491,18 @@ function generateAllStats() {
 
 
 //Calls to start conversation
-var characterImage = $('#characterImage');
+const characterImage = $('#characterImage');
 
-var conversationWords = $('#conversationWords');
+const conversationWords = $('#conversationWords');
 
 function sentencePackage(input) {
-    var newParagraph = $('<p>');
+    const newParagraph = $('<p>');
     newParagraph.text(input);
     return newParagraph;
 }
 
 function panelPackage(input) {
-    var newPanel = $('<div>');
+    const newPanel = $('<div>');
     newPanel.addClass('panel-body w3-container w3-animate-opacity');
     newPanel.append(input);
     return newPanel;
@@ -569,7 +569,7 @@ function playAudio(inputValue) {
     }
 }
 
-var conversationHolder = {
+let conversationHolder = {
     dialogue: [],
     dialogueLength: 0,
     dialoguePlace: 0
@@ -588,15 +588,15 @@ function createConversation(conversationHolder) {
 }
 
 function handleConversation() {
-    var conversation = conversationHolder.dialogue[conversationHolder.dialoguePlace];
+    const conversation = conversationHolder.dialogue[conversationHolder.dialoguePlace];
     conversationHolder.dialoguePlace++;
     conversationWords.html(panelPackage(sentencePackage(conversation)));
     return conversation;
 }
 
 function createNextButton(conversationHolder) {
-    var nextButton = $('#nextButton');
-    var newButton = $('<button>');
+    const nextButton = $('#nextButton');
+    const newButton = $('<button>');
     newButton.attr('id', 'buttonNext');
     newButton.addClass('btn btn-info');
     newButton.text('Next');
@@ -654,7 +654,7 @@ function checkTalkingTo() {
 }
 
 //Choses background from assets/images
-var backgroundOptions = $('.backgroundOptions');
+const backgroundOptions = $('.backgroundOptions');
 backgroundOptions.mouseup(function() {
     if(currentLocation === $(this).data('value') || talking) {
         return;
@@ -670,9 +670,9 @@ backgroundOptions.mouseup(function() {
 //This needs to be called each time options are generated because .empty removes it
 function resetCharacterButtons() {
 
-    var characterOptions = $('.characterOptions');
+    const characterOptions = $('.characterOptions');
     characterOptions.mouseup(function() {
-        var currentCharacter = $(this).data('value');
+        const currentCharacter = $(this).data('value');
         enterConversation(currentCharacter);
     });
 }
@@ -704,14 +704,14 @@ function setCharacterBackground(inputCharacter) {
 }
 
 function checkLocationConversation() {
-    var additionalOptions = $('#conversationOptions');
+    const additionalOptions = $('#conversationOptions');
     additionalOptions.empty();
-    var type = 'locationConversation';
-    var spawnRate = .45;
+    const type = 'locationConversation';
+    const spawnRate = .45;
     switch (currentLocation) {
         case 'cafe':
             characters.cafe.forEach(function(input) {
-                var keyChance = 0;
+                let keyChance = 0;
                 if (selectCharacter(input)['affection'] < 1) {
                     keyChance = 0;
                 } else {
@@ -726,7 +726,7 @@ function checkLocationConversation() {
             break;
         case 'bar':
             characters.bar.forEach(function(input) {
-                var keyChance = 0;
+                let keyChance = 0;
                 if (selectCharacter(input)['affection'] < 1) {
                     keyChance = 0;
                 } else {
@@ -741,7 +741,7 @@ function checkLocationConversation() {
             break;
         case 'table':
             characters.table.forEach(function(input) {
-                var keyChance = 0;
+                let keyChance = 0;
                 if (selectCharacter(input)['affection'] < 1) {
                     keyChance = 0;
                 } else {
@@ -756,7 +756,7 @@ function checkLocationConversation() {
             break;
         case 'patio':
             characters.patio.forEach(function(input) {
-                var keyChance = 0;
+                let keyChance = 0;
                 if (selectCharacter(input)['affection'] < 1) {
                     keyChance = 0;
                 } else {
@@ -781,7 +781,7 @@ function generateRandomKey(inputChance) {
 
 //Checks if key is in object
 function checkForKey(inputName, inputKey) {
-    var loadObject = selectCharacter(inputName);
+    const loadObject = selectCharacter(inputName);
     return loadObject.hasOwnProperty(inputKey);
 }
 
@@ -804,7 +804,7 @@ function selectCharacter(input) {
 
 //Initiates a special conversation between you and a character
 function startLocationConversation(characterInput, locationInput) {
-    var character = selectCharacter(characterInput);
+    const character = selectCharacter(characterInput);
     switch(locationInput) {
         case 'cafe':
             initiateConversation(character.cafe(), characterInput);
@@ -824,8 +824,8 @@ function startLocationConversation(characterInput, locationInput) {
 }
 
 function packageButton(inputClass, inputValue, inputCharacter) {
-    var newButton = $('<button>');
-    var classValue = 'btn btn-default ' + inputClass;
+    const newButton = $('<button>');
+    const classValue = 'btn btn-default ' + inputClass;
     newButton.addClass(classValue);
     newButton.attr('value', inputValue);
     newButton.text('+' + inputCharacter.toUpperCase());
@@ -858,8 +858,8 @@ function setLocationConversationButton() {
             talking = true;
             hideButtons();
         }
-        var buttonValue = $(this).attr('value');
-        var updateCharacter = selectCharacter(buttonValue);
+        const buttonValue = $(this).attr('value');
+        let updateCharacter = selectCharacter(buttonValue);
         startLocationConversation(buttonValue, currentLocation);
         updateCharacter['affection'] += 3;
         $(this).remove();
